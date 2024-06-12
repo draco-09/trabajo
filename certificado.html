@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Certificado</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f0f0f0;
+        }
+
+        .certificate {
+    width: 890px;
+    margin: 50px auto; /* Centrar el certificado horizontalmente y agregar margen superior e inferior */
+    padding: 100px 0; /* Relleno vertical ajustado */
+    border: 2px solid #000;
+    background-image: url('fondo_2.jpeg'); /* Agregar el fondo */
+    background-size: cover; /* Ajustar el tamaño del fondo */
+    background-position: center; /* Centrar el fondo */
+    text-align: center; /* Centrar el contenido del certificado */
+    color: #000; /* Color del texto */
+}
+
+        .header {
+            text-align: center;
+        }
+
+        .header h1 {
+            margin: 0;
+            padding: 0;
+            font-size: 24px;
+        }
+
+        .content {
+            margin-top: 30px;
+        }
+
+        .content p {
+            margin: 10px 0;
+            font-size: 16px;
+            text-align: center;
+        }
+
+        .name {
+            font-size: 20px;
+            font-weight: bold;
+        }
+
+        .code {
+            font-style: italic;
+        }
+
+        .footer {
+            margin-top: 30px;
+            text-align: center;
+        }
+
+        .footer p {
+            margin: 0;
+            font-size: 18px;
+        }
+    </style>
+</head>
+<body>
+   <div class="certificate" id="certificate" style="text-align: center;">
+    <div class="header">
+        <h1 style="font-family: Verdana; color: green; font-size: 45px;">CERTIFICADO</h1>
+    </div>
+    <div class="content" style="text-align: left;">
+        <p>Nombre:</p>
+        <p><span style="font-family: Curlz MT; font-size: 35px;" id="nameField"></span></p>
+        <p>Con CE:</p>
+        <p><span style="font-family: Century Schoolbook;" id="codeField"></span></p>
+        <p>Carrera:</p>
+        <p><span style="font-family: Century Schoolbook;" id="careerField"></span></p>
+        <br>
+        <p style="text-align: center; margin: 0 auto; max-width: 700px;">
+            Se otorga el presente certificado por haber participado y aprobado en el OVA "Teoría de Optimización Usando Elementos de Inteligencia Artificial" Desarrollado por el Grupo de estudiantes del curso Calculo diferencial realizado el día <span id="dateSpan"></span>
+        </p>
+    </div>
+</div>
+
+
+
+
+    <script>
+        function generateCertificate() {
+        // Recuperar los datos del estudiante del LocalStorage
+        const nombre = localStorage.getItem('nombre');
+        const codigo = localStorage.getItem('codigo');
+        const carrera = localStorage.getItem('carrera');
+
+        if (!nombre || !codigo || !carrera) {
+            alert('No se encontraron datos de estudiante.');
+            return;
+        }
+
+        // Actualizar los campos del certificado con los datos del estudiante
+        document.getElementById('nameField').innerText = nombre;
+        document.getElementById('codeField').innerText = codigo;
+        document.getElementById('careerField').innerText = carrera;
+
+        // Obtener la fecha actual
+        const today = new Date();
+        const date = `${today.getDate()}/${today.getMonth() + 1}/${today.getFullYear()}`;
+
+        // Actualizar la fecha en el certificado
+        document.getElementById('dateSpan').innerText = date;
+
+        // Mostrar el certificado
+        document.getElementById('certificate').style.display = "block";
+    }
+        // Generar el certificado automáticamente cuando se cargue la página
+        window.onload = generateCertificate;
+    </script>
+</body>
+</html>

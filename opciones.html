@@ -1,0 +1,790 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>.</title>
+    <style>
+h4 {
+        color: black;    
+}
+
+        body {
+    font-family: Arial, sans-serif;
+    background-color: #f4f4f4;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    height: 100vh;
+flex-direction: column;
+}
+
+.completed {
+    background-color: green;
+}
+
+.sidebar {
+    width: 200px;
+    background: #2b2b2b;
+    padding: 15px;
+    box-sizing: border-box;
+    height: 100%;
+    overflow-y: auto;
+    position: fixed;
+    top: 0;
+    left: -200px;
+    transition: left 0.3s ease;
+}
+
+.sidebar.active {
+    left: 0;
+}
+
+.sidebar ul {
+    list-style-type: none;
+    padding: 0;
+    margin: 0;
+}
+
+.sidebar li {
+    margin: 10px 0;
+}
+
+.sidebar a {
+    text-decoration: none;
+    color: white;
+    font-size: 14px;
+    display: block;
+    padding: 10px;
+    border-radius: 5px;
+    background-color: #444;
+    transition: background-color 0.3s ease;
+}
+
+.sidebar a:hover {
+    background-color: #555;
+}
+
+.main-content {
+    flex-grow: 1;
+    padding: 20px;
+    margin-left: 0;
+    transition: margin-left 0.3s ease;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-start;
+}
+
+.main-content.shifted {
+    margin-left: 200px;
+}
+
+.header {
+    background: #4a148c;
+    color: white;
+    padding: 15px;
+    text-align: center;
+    width: 100%;
+margin-bottom: 0;
+}
+
+.progress-bar {
+    height: 10px;
+    background: #e0e0e0;
+    border-radius: 5px;
+    overflow: hidden;
+    margin-bottom: 20px;
+    position: relative;
+}
+
+.progress-bar-inner {
+    height: 100%;
+    width: 0;
+    background: #4CAF50;
+    transition: width 0.3s ease;
+}
+
+.progress-text {
+    position: absolute;
+    width: 100%;
+    text-align: center;
+    top: 0;
+    left: 0;
+    font-size: 10px;
+    color: black;
+}
+
+.toggle-button {
+    position: absolute;
+    top: 20px;
+    left: 5px;
+    z-index: 1000;
+    background: #4a148c;
+    border: none;
+    cursor: pointer;
+    font-size: 20px;
+    color: white;
+    padding: 5px 10px;
+    border-radius: 3px;
+    transition: left 0.3s ease;
+}
+
+.toggle-button.shifted {
+    left: 215px;
+}
+
+.welcome-message {
+    padding: 20px;
+    background: white;
+    border-radius: 10px;
+    margin-top: 10xp;
+    width: 100%;
+    font-size: 15px; /* Tamaño de la letra del párrafo */
+    line-height: 1.5; /* Espaciado entre líneas */
+ margin-top: 0; /* Agregamos esta línea para eliminar el margen superior */
+        margin-bottom: 0;
+}
+
+.welcome-message p {
+    margin: 0; /* Ajusta el margen de los párrafos a 0 */
+}
+
+.sidebar-header {
+    color: white;
+    font-size: 16px;
+    margin-bottom: 20px;
+    text-align: center;
+}
+
+.button-container {
+    position: relative;
+    bottom: 0;
+    left: 50;
+    width: 100%;
+    background-color: transparent;
+    display: flex;
+    justify-content: center;
+    padding: 10px 0;
+    transition: margin-left 0.3s ease;
+margin-top: auto;
+}
+
+.nav-button {
+    padding: 10px 20px;
+    background-color: #4CAF50;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 14px;
+    margin: 0 5px;
+position: relative; 
+display: flex; /* Establece la visualización como flex */
+    justify-content: space-between;
+   
+}
+
+.nav-button:hover {
+    background-color: #45a049;
+}
+
+.options-title {
+    text-align: center;
+    color: white;
+    font-size: 18px;
+    margin-bottom: 20px;
+}
+
+.selected {
+    background-color: green;
+}
+
+
+body {
+    font-size: 22px; /* Tamaño de letra */
+    color: #FFFFFF; /* Color de la letra */
+    background-image: url('1.gif'); /* Ruta a la imagen de fondo */
+    background-size: cover; /* Ajusta la imagen de fondo para cubrir todo el body */
+    background-repeat: no-repeat; /* Evita que la imagen de fondo se repita */
+    background-position: center; /* Centra la imagen de fondo horizontal y verticalmente */
+}
+.card-container {
+    display: flex;
+    justify-content: center;
+    gap: 20px;
+    flex-wrap: wrap;
+    margin-top: 20px;
+    text-align: center; /* Alinea el contenido al centro */
+}
+
+.card {
+    background-color: white;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    overflow: hidden;
+    transition: transform 0.3s ease;
+    width: 300px;
+    position: relative;
+    margin-bottom: 20px; /* Espacio entre tarjetas */
+}
+
+.card:hover {
+    transform: scale(1.05);
+}
+
+.card-content {
+    padding: 20px;
+}
+
+.card-image {
+    display: none;
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+}
+
+.card-image img {
+    width: 100%; /* La imagen ocupará todo el ancho del contenedor */
+    height: auto; /* La altura se ajustará automáticamente para mantener la proporción */
+}
+.card:hover .card-content {
+    display: none;
+}
+
+.card:hover .card-image {
+    display: block;
+}
+
+    </style>
+</head>
+<body>
+ 
+<div class="sidebar" id="sidebar">
+    <div class="sidebar-header"></div>
+    <div class="options-title">
+        <h3>Teoría de optimización usando elementos de inteligencia artificial</h3>
+    </div>
+    <div class="progress-bar">
+        <div class="progress-bar-inner" id="progress-bar-inner"></div>
+        <div class="progress-text" id="progress-text">0%</div>
+    </div>
+    <ul>
+        <li><a href="#" onclick="updateContent(1, 'Bienvenid@')">Bienvenid@</a></li>
+        <li><a href="#" onclick="updateContent(2, 'Introducción')">Introducción</a></li>
+        <li><a href="#" onclick="updateContent(3, 'Competencia')">Competencia</a></li>
+        <li><a href="#" onclick="updateContent(4, 'Metodología')">Metodología</a></li>
+        <li><a href="#" onclick="updateContent(5, 'Temáticas')">Temáticas</a></li>
+        <li><a href="#" onclick="updateContent(6, 'Planteamiento de la Situación Problema')">Planteamiento de la Situación Problema</a></li>
+        <li><a href="#" onclick="updateContent(7, 'Desarrollo de la Situación Problema')">Desarrollo de la Situación Problema</a></li>
+        <li><a href="#" onclick="updateContent(8, 'Análisis de Resultados')">Análisis de Resultados</a></li>
+        <li><a href="#" onclick="updateContent(9, 'Actividades de Aprendizaje')">Actividades de Aprendizaje</a></li>
+        <li><a href="#" onclick="updateContent(10, 'Actividades de Evaluación')">Actividades de Evaluación</a></li>
+        <li><a href="#" onclick="updateContent(11, 'Conclusiones')">Conclusiones</a></li>
+        <li><a href="#" onclick="updateContent(12, 'Bibliografía')">Bibliografía</a></li>
+        <li><a href="#" onclick="updateContent(13, 'Autores')">Autores</a></li>
+    </ul>
+</div>
+<button class="toggle-button" onclick="toggleSidebar()">&#9776;</button>
+<div class="main-content" id="main-content">
+    <div class="header" id="header-title">
+        <h1>Bienvenid@ <span id="nombreUsuario"></span></h1>
+    </div>
+    <div class="welcome-message" id="welcome-message"></div>
+   <div id="info-container" class="background-option" style="height: calc(100vh - 85px); overflow-y: auto; overflow-x: hidden;"></div>
+    <div class="button-container">
+            <button class="nav-button" id="previous-button" onclick="previousOption()" style="display: none;">Anterior</button>
+            <button class="nav-button" id="next-button" onclick="nextOption()">Siguiente</button>
+            <button class="nav-button" id="certificado-button" style="display: none;" onclick="generateCertificate()">Certificado</button>
+        </div>
+    </div>
+</div>
+<script>
+    const totalOptions = 13;
+    const optionWeights = {
+        'Bienvenid@': 2,
+        'Introducción': 2,
+        'Competencia': 2,
+        'Metodología': 2,
+        'Temáticas': 2,
+        'Planteamiento de la Situación Problema': 2,
+        'Desarrollo de la Situación Problema': 2,
+        'Análisis de Resultados': 2,
+        'Actividades de Aprendizaje': 30,
+        'Actividades de Evaluación': 48, // Se agregaron 18 puntos adicionales
+        'Conclusiones': 2,
+        'Bibliografía': 2,
+        'Autores': 2
+    };
+
+    let lastProgressPercentage = 0;
+    let optionProgress = Array(totalOptions).fill(0); // Inicializamos la lista con ceros
+    let currentOption = 1;
+
+    function toggleSidebar() {
+        var sidebar = document.getElementById('sidebar');
+        sidebar.classList.toggle('active');
+
+        var toggleButton = document.querySelector('.toggle-button');
+        toggleButton.classList.toggle('shifted');
+
+        var mainContent = document.getElementById('main-content');
+        mainContent.classList.toggle('shifted');
+    }
+
+    function moveMainContent() {
+        var sidebar = document.getElementById('sidebar');
+        var mainContent = document.getElementById('main-content');
+        var toggleButton = document.querySelector('.toggle-button');
+        var buttonContainer = document.querySelector('.button-container');
+
+        if (sidebar.classList.contains('active')) {
+            mainContent.style.marginLeft = '200px';
+            toggleButton.style.left = '205px';
+            buttonContainer.style.marginLeft = '200px'; // Mueve el contenedor de botones
+        } else {
+            mainContent.style.marginLeft = '0';
+            toggleButton.style.left = '5px';
+            buttonContainer.style.marginLeft = '0'; // Restaura la posición original del contenedor de botones
+        }
+    }
+
+    const optionInfo = {
+    1: "<p>¡Bienvenido al OVA sobre Teoría de optimización usando elementos de inteligencia artificial! En este OVA exploraremos la importancia de la optimización en el mundo de la inteligencia artificial y cómo su uso puede mejorar y optimizar el desempeño de los modelos. Además, nos adentraremos en el concepto de la derivada y cómo puede ser una herramienta clave para determinar la sensibilidad de un modelo a un input específico y mejorarlo.</p><p>En este OVA abordaremos temas como la función objetivo, la importancia de la selección de parámetros, el método de descenso de gradiente y su variante estocástica, entre otros. Este OVA es ideal para aquellos interesados en el aprendizaje automático y la optimización de sus modelos de IA para un mejor rendimiento.</p><p>Esperamos que disfrutes de este OVA y que te sientas enriquecido y satisfecho con la información proporcionada. Si tienes alguna duda o necesitas ayuda, no dudes en preguntar. ¡Empecemos a aprender!</p>",
+    2: "<video width='560' height='500' controls><source src='introducion.mp4' type='video/mp4'>Your browser does not support the video tag.</video>",
+3: `
+        <div style='display: flex; align-items: flex-start;'>
+            <img src='3.jpeg' alt='Descripción de la imagen' style='margin-right: 20px; width: 400px; height: 400px;'>
+            <div style='color: white;'>
+                <h2 style='margin-top: 0;'>Competencia Técnica</h2>
+                <p>Implica la capacidad de aplicar conocimientos y habilidades avanzadas de matemáticas y tecnología para resolver problemas específicos en el campo de la inteligencia artificial, como la optimización de modelos y el análisis de grandes volúmenes de datos. Además, el enfoque en el cálculo diferencial permite a los estudiantes desarrollar la habilidad técnica de construir modelos matemáticos para la optimización de problemas en su vida cotidiana y en su entorno profesional utilizando herramientas avanzadas de cálculo.</p>
+            </div>
+        </div>
+    `,
+4: `
+        <div style='display: flex; align-items: flex-start;'>
+            <img src='4.jpeg' alt='Descripción de la imagen' style='margin-right: 20px; width: 400px; height: 400px;'>
+            <div style='color: white;'>
+                <h2 style='margin-top: 0;'>Estrategias y Técnicas para la Aplicación Práctica</h2>
+                <p>En nuestra metodología pedagógica, priorizamos la resolución de problemas reales mediante el cálculo diferencial como herramienta fundamental. Los estudiantes se enfrentarán a escenarios adaptados a sus perfiles profesionales, donde aplicarán conceptos matemáticos y herramientas como Geogebra para abordar desafíos de optimización. Además, promoveremos el trabajo en equipo y el debate activo, lo que permitirá a los estudiantes consolidar habilidades matemáticas, de pensamiento crítico y colaboración. A través de este enfoque, buscamos facilitar la comprensión y la aplicación práctica de los conceptos aprendidos en situaciones cotidianas y profesionales, preparando a los estudiantes para enfrentar eficazmente los desafíos del mundo real con confianza y destreza.</p>
+            </div>
+        </div>
+    `,
+5: `<div>
+        <h2 style="color: #FFFFFF; font-size: 24px; text-align: center;">¿Qué se conoce como gráfica de una función?</h2>
+    </div>
+    <div style="display: flex; align-items: center; justify-content: space-between;">
+        <button id="prevButton" onclick="previousSlide()">◀</button>
+        <div id="slide-content">
+            <img src="slide1.png" alt="Diapositiva 1">
+        </div>
+        <button id="nextButton" onclick="nextSlide()">▶</button>
+    </div>
+    <div style="text-align: center;">
+        <h2 style="color: #FFFFFF; font-size: 24px;">¿Qué se conoce como gráfica de una función?</h2>
+    </div>
+    <div class="card-container">
+        <div class="card">
+            <div class="card-content">
+                <h4>Función Lineal</h4>
+               <h4>Una función lineal tiene la forma F(X) = MX + B, donde M es la pendiente y B es la intersección con el eje Y La gráfica de una función lineal es una línea recta. Esta función representa una relación directa y constante entre X y Y.</h4>
+            </div>
+            <div class="card-image">
+                <img src="lineal.png" alt="Imagen 1">
+            </div>
+        </div>
+        <div class="card">
+            <div class="card-content">
+                <h4>Función Cuadrática</h4>
+                <h4>Una función cuadrática tiene la forma F(X) = AX^2 + BX + C, donde A, B, y C son constantes. La gráfica de una función cuadrática es una parábola, que puede abrir hacia arriba o hacia abajo dependiendo del signo de A.
+</h4>
+            </div>
+            <div class="card-image">
+                <img src="cuadratica.webp" alt="Imagen 2">
+            </div>
+        </div>
+        <div class="card">
+            <div class="card-content">
+                <h4>Función Exponencial</h4>
+                <h4>Una función exponencial tiene la forma F(X) = A ∙ B^X, donde A es una constante y B es la base de la función (con B > 0 y B ≠ 1). La gráfica de una función exponencial muestra un crecimiento o decaimiento rápido, dependiendo de si B es mayor o menor que 1.
+</h4>
+            </div>
+            <div class="card-image">
+                <img src="exponencial.jpg" alt="Imagen 3">
+            </div>
+        </div>
+    </div>
+ <div style="text-align: center;">
+        <h2 style="color: #FFFFFF; font-size: 24px;">Te invitamos a ver la herramienta GeoGebra</h2>
+    </div>
+    <video width='560' height='315' controls><source src='GeoGebra.mp4' type='video/mp4'>Your browser does not support the video tag.</video>
+<div style="text-align: center;">
+        <h2 style="color: #FFFFFF; font-size: 24px;">¿Qué son  las  de derivadas?</h2>
+    </div>
+<div class="card-container">
+        <div class="card">
+            <div class="card-content">
+                <h4></h4>
+               <h4>Las derivadas son herramientas matemáticas que nos ayudan a entender cómo cambian las funciones en puntos específicos. Son fundamentales para calcular tasas de cambio instantáneas, encontrar máximos y mínimos de funciones, y resolver problemas de optimización en diversas áreas como la física, la economía y la ingeniería.</h4>
+            </div>
+            <div class="card-image">
+                <img src="derivada.png" alt="Imagen 1">
+            </div>
+        </div>
+        <div class="card">
+            <div class="card-content">
+                <h4></h4>
+                <h4>La definición matemática de la derivada de una función F(X) en un punto X=A es el límite cuando H tiende a cero de la razón de cambio de la función
+</h4>
+            </div>
+            <div class="card-image">
+                <img src="definicion.webp" alt="Imagen 2">
+            </div>
+        </div>
+        <div class="card">
+            <div class="card-content">
+                <h4></h4>
+                <h4>Geométricamente, la derivada de una función en un punto representa la pendiente de la recta tangente a la curva de la función en ese punto. En otras palabras, indica la inclinación de la curva en ese punto específico. Si la derivada es positiva, la curva está inclinada hacia arriba; si es negativa, está inclinada hacia abajo. Una derivada igual a cero indica un punto crítico o una inflexión en la curva.	
+</h4>
+            </div>
+            <div class="card-image">
+                <img src="geo.jpg" alt="Imagen 3">
+            </div>
+        </div>
+    </div>
+<div style="text-align: center;">
+        <h2 style="color: #FFFFFF; font-size: 24px;">Derivada Función</h2>
+    </div>
+<video width='560' height='315' controls><source src='fun.mp4' type='video/mp4'>Your browser does not support the video tag.</video>
+<div style="text-align: center;">
+        <h2 style="color: #FFFFFF; font-size: 24px;">Derivada trigonometrica</h2>
+    </div>
+<video width='560' height='315' controls><source src='trigo.mp4' type='video/mp4'>Your browser does not support the video tag.</video>`,
+6: `
+<p>Contexto: Una empresa de tecnología busca optimizar una red neuronal que tiene una capa de entrada, una capa oculta compuesta de neuronas y una capa de salida. Supóngase que la eficiencia inicial de la red requerida es del 90%. Se identificó un parámetro clave que influye en el desempeño de la mencionada red, a saber: La constante (A) que potencia la eficiencia de los algoritmos utilizados por la red, medida en %/metros.segundos. Para este ejemplo, se asumirá que el valor de A es de 0.9 %/m.s.
+Objetivo: Obtener la derivada de la función f(t) que modela la eficiencia de las neuronas presentes en la capa oculta de la red neuronal, las cuales hacen la función de unidades de cómputo dentro de la mencionada red.
+La mencionada función es f: R → R, tal que: f(t) = D.A.sin(w.t + 2/π) donde:
+    w es la velocidad angular (rad/s) de la oscilación que produce cada neurona de la capa oculta.
+    D es el inverso del número de onda (k) de la oscilación.
+    t es el tiempo de procesamiento que emplea cada neurona de la capa oculta.
+Nota: La constante A ya fue identificada antes del objetivo de este documento.
+Es importante conocer que la derivada de f(t), es decir, la tasa de cambio de la eficiencia de la red neuronal, se puede interpretar como la variación en la eficiencia de una red neuronal con respecto al tiempo, la cual puede ser afectada por ciertos parámetros. Esta tasa de cambio puede indicar cómo la eficiencia de la red neuronal está evolucionando, ya sea mejorando o empeorando, en función de diferentes factores como la eficiencia de la red neuronal, la cual viene a su vez condicionada por aspectos tales como el entrenamiento, la arquitectura de la red, los datos de entrada, entre otros.
+En el contexto de las redes neuronales, la eficiencia se refiere a la capacidad de la red para realizar correctamente la tarea para la que fue diseñada, como la predicción de datos, clasificación, reconocimiento de patrones, entre otros. Por lo tanto, la tasa de cambio de la eficiencia de la red neuronal puede ser un indicador importante para evaluar su desempeño y ajustar su funcionamiento para lograr mejores resultados.
+Esta interpretación implica que se está observando cómo varía la capacidad de la red neuronal para cumplir con su objetivo a lo largo del tiempo o en función de ciertos parámetros específicos, lo que puede ser fundamental para optimizar su rendimiento y su capacidad predictiva en diferentes aplicaciones.
+</p>`,
+ 7: `
+<div>
+  <p>
+    - Derivada de la Función
+    f(t)' = D.A.w.Cos(w⋅t+2/π)
+  </p>
+
+  <p>
+    <strong>Cálculo Detallado</strong>
+    <br>
+    Se consideran, de manera arbitraria, los siguientes valores:
+    <br>
+    A = 0.9 %/m.s.
+    <br>
+    w = 0.7 rad/s
+    <br>
+    t = 0.2 s
+    <br>
+    k = 0.8 rad/m 
+    <br>
+    D = 1/0.8, expresada en m/rad.
+  </p>
+
+  <p>
+    Sustituyendo los valores en la fórmula:
+    <br>
+    f(t)' = (0.7/0.8) * 0.9 * cos(0.7*0.2 + 2/π) ≈ 0.7844 %/s
+  </p>
+
+  <p>
+    Ahora, se calcula la tasa de cambio porcentual:
+    <br>
+    Tasa de cambio porcentual = (Tasa de cambio / Eficiencia inicial) × 100%
+    <br>
+    Tasa de cambio porcentual = (0.7844 / 0.9) × 100%
+    <br>
+    Tasa de cambio porcentual ≈ 87.16%/s
+  </p>
+</div>
+`,
+8: `
+<div>
+  <p>Esto significa que la eficiencia de la red neuronal está aumentando a una tasa porcentual de aproximadamente 87.16% por segundo. Este cálculo demuestra cómo las derivadas pueden ser aplicadas en la interpretación de modelos computacionales de IA e identificar su desempeño real.</p>
+  <p><strong>Grafica de las funciones involucradas en el ejemplo desarrollado.</strong></p>
+  <ol>
+    <li>Función original: f(t) = 1.125 sen(0.7*t + 2/π)</li>
+  </ol>
+  <div style="text-align: center;">
+    <img src="7.jpeg" alt="Descripción de la primera imagen">
+  </div>
+<ol>
+<li>Función derivada: f(t)' = 0.7875 cos(0.7*t + 2/π)</li>
+</ol>
+  <div style="text-align: center;">
+    <img src="8.jpeg" alt="Descripción de la segunda imagen">
+  </div>
+</div>
+`,
+9:`
+<div>
+  <p>Actividad 1 <button onclick="window.location.href = 'https://view.genially.com/66685f10b508af00149219d0/interactive-content-quiz-cubos';">Ir</button></p>
+  <p>Actividad 2 <button onclick="window.location.href = 'https://view.genially.com/666865fda6a90700152201d0/interactive-content-quiz-superheroes';">Ir</button></p>
+  <p>Actividad 3 <button onclick="window.location.href = 'https://view.genially.com/66686cae7542f4001491b283/interactive-content-quiz-prehistoria';">Ir</button></p>
+  <p>Actividad 4 <button onclick="window.location.href = 'https://es.educaplay.com/recursos-educativos/19451058-sopa_de_letras.html';">Ir</button></p>
+  <p>Actividad 5 <button onclick="window.location.href = 'https://view.genially.com/6668786e306dba00145aa554/interactive-content-quiz';">Ir</button></p>
+</div>
+`,
+10:`
+<div>
+  <p>Evaluacion final <button onclick="window.location.href = 'https://view.genially.com/66687bbda6a9070015321cef/interactive-content-quiz';">Ir</button></p>
+
+`,
+11:`
+<div>
+  <p>Después de completar el OVA "Teoría de optimización usando elementos de inteligencia artificial", queda claro que la optimización es crucial para mejorar el rendimiento de los modelos de IA. La integración del cálculo diferencial, especialmente el uso de derivadas, permite ajustar y perfeccionar los parámetros de los modelos a través de técnicas como el descenso de gradiente. A lo largo del OVA, hemos explorado aplicaciones prácticas y metodologías concretas que demuestran cómo estos conceptos teóricos se traducen en mejoras significativas en el mundo real, desde la salud hasta la ciberseguridad y la industria. Este conocimiento no solo amplía nuestra comprensión de la inteligencia artificial, sino que también nos proporciona herramientas prácticas para innovar y optimizar en diversos campos.</p>
+</div>`,
+12:`
+        <div style="color: white;">
+            <h2>Bibliografía</h2>
+            <ul>
+                <li><a href="https://es.wikipedia.org/wiki/Gr%C3%A1fica_de_una_funci%C3%B3n" target="_blank">https://es.wikipedia.org/wiki/Gr%C3%A1fica_de_una_funci%C3%B3n</a></li>
+                <li><a href="https://www.matemente.com/derivada/" target="_blank">https://www.matemente.com/derivada/</a></li>
+                <li><a href="https://bibliotecadigital.udea.edu.co/bitstream/10495/7106/1/SandraLondo%C3%B1o_2011_relacioneslineales.pdf" target="_blank">https://bibliotecadigital.udea.edu.co/bitstream/10495/7106/1/SandraLondo%C3%B1o_2011_relacioneslineales.pdf</a></li>
+                <li><a href="https://www.lifeder.com/reglas-de-derivacion/" target="_blank">https://www.lifeder.com/reglas-de-derivacion/</a></li>
+            </ul>
+        </div>
+    `,
+13:`
+        </div>
+        <div class="card-container">
+            <div class="card">
+                <div class="card-content">
+                    <h4>Camila Molina Guerrero</h4>
+                </div>
+                <div class="card-image">
+                    <img src="cami.jpeg" alt="Imagen 1">
+                </div>
+            </div>
+            <div class="card">
+                <div class="card-content">
+                    <h4>Jhoan David Perez Blanco</h4>
+                </div>
+                <div class="card-image">
+                    <img src="jo.jpeg" alt="Imagen 2">
+                </div>
+            </div>
+            <div class="card">
+                <div class="card-content">
+                    <h4>Profesor Miguel</h4>
+                </div>
+                <div class="card-image">
+                    <img src="mi.png" alt="Imagen 3">
+                </div>
+            </div>
+            <div class="card">
+                <div class="card-content">
+                    <h4>Jeferson</h4>
+                </div>
+                <div class="card-image">
+                    <img src="placeholder.png" alt="Imagen 4">
+                </div>
+            </div>
+        </div>
+    `,
+
+};
+let currentSlide = 1;
+const maxSlides = 7; // Número máximo de diapositivas
+
+function nextSlide() {
+    if (currentSlide < maxSlides) {
+        currentSlide++;
+        updateSlideContent();
+    }
+}
+
+function previousSlide() {
+    if (currentSlide > 1) {
+        currentSlide--;
+        updateSlideContent();
+    }
+}
+
+function updateSlideContent() {
+    const slideContent = document.getElementById('slide-content');
+    slideContent.innerHTML = `<img src="slide${currentSlide}.png" alt="Diapositiva ${currentSlide}">
+    `;
+    updateButtons();
+}
+
+        function updateButtons() {
+            document.getElementById('prevButton').disabled = (currentSlide === 1);
+            document.getElementById('nextButton').disabled = (currentSlide === maxSlides);
+        }
+
+        window.onload = function() {
+            // Al cargar la página por primera vez, mostrar el contenido de la primera opción
+             // Aquí 5 es el valor inicial para mostrar la opción de diapositivas.
+updateContent(1);
+        };
+
+        function updateContent(option) {
+            window.onload = function() {
+        updateContent(1); // Cargar contenido inicial
+    };
+
+    function updateContent(option) {
+        const infoContainer = document.getElementById('info-container');
+        infoContainer.innerHTML = optionInfo[option];
+
+        // Mover botones si el contenido excede la altura del contenedor
+        const contentHeight = infoContainer.offsetHeight;
+        const buttonContainer = document.getElementById('button-container');
+        if (contentHeight > window.innerHeight * 0.7) { // Ajusta este valor según sea necesario
+            buttonContainer.style.position = 'relative';
+            buttonContainer.style.top = `${contentHeight + 20}px`; // Ajusta el espacio adicional según sea necesario
+        } else {
+            buttonContainer.style.position = 'static';
+            buttonContainer.style.top = 'auto';
+        }
+
+        updateButtons();
+    }
+        }
+function updateContent(option, title) {
+    
+    const infoContainer = document.getElementById('info-container');
+
+  
+    const optionContent = optionInfo[option];
+
+   
+    infoContainer.innerHTML = optionContent;
+
+    
+    infoContainer.className = 'option' + option + '-background';
+
+    
+    if (title) {
+     
+        const headerTitle = document.getElementById('header-title');
+        headerTitle.innerHTML = '<h1>' + title + '</h1>';
+
+
+        const sidebarLinks = document.querySelectorAll('.sidebar a');
+        sidebarLinks.forEach((link) => {
+            if (link.textContent === title) {
+                link.classList.add('completed');
+            } else {
+                link.classList.remove('completed');
+            }
+        });
+        updateProgress(option, title);
+        updateButtonVisibility(option);
+
+        const certificadoButton = document.getElementById('certificado-button');
+        if (title === 'Autores' && isCertificateEligible()) {
+            certificadoButton.style.display = 'inline-block';
+        } else {
+            certificadoButton.style.display = 'none';
+        }
+    }
+  adjustButtonContainer();
+}
+
+    function updateProgress(option, title) {
+        if (optionProgress[option - 1] === 0) {
+            lastProgressPercentage += optionWeights[title] || 0;
+            optionProgress[option - 1] = 1;
+        }
+        const progressBarInner = document.getElementById('progress-bar-inner');
+        const progressText = document.getElementById('progress-text');
+        progressBarInner.style.width = lastProgressPercentage + '%';
+        progressText.innerText = lastProgressPercentage + '%';
+    }
+
+    function updateButtonVisibility(option) {
+        const previousButton = document.getElementById('previous-button');
+        const nextButton = document.getElementById('next-button');
+        if (option === 1) {
+            previousButton.style.display = 'none';
+        } else {
+            previousButton.style.display = 'inline-block';
+            previousButton.setAttribute('onclick', 'previousOption(' + option + ')');
+        }
+        if (option === totalOptions) {
+            nextButton.style.display = 'none';
+        } else {
+            nextButton.style.display = 'inline-block';
+            nextButton.setAttribute('onclick', 'nextOption(' + option + ')');
+        }
+    }
+
+    function previousOption() {
+        if (currentOption > 1) {
+            currentOption--;
+            updateContent(currentOption, getOptionTitle(currentOption));
+        }
+    }
+
+    function isCertificateEligible() {
+        // Verificar si todas las secciones están completadas
+        return optionProgress.every(progress => progress > 0);
+    }
+
+    function generateCertificate() {
+        // Redirigir al archivo certificado.html
+        window.location.href = 'certificado.html';
+    }
+
+    function nextOption() {
+        if (currentOption < totalOptions) {
+            currentOption++;
+            updateContent(currentOption, getOptionTitle(currentOption));
+        }
+    }
+
+function adjustButtonContainer() {
+        const buttonContainer = document.getElementById('button-container');
+        const mainContent = document.getElementById('main-content');
+        const welcomeMessage = document.getElementById('welcome-message');
+        const rect = welcomeMessage.getBoundingClientRect();
+
+        if (rect.bottom > window.innerHeight) {
+            buttonContainer.style.position = 'relative';
+            buttonContainer.style.bottom = 'auto';
+        } else {
+            buttonContainer.style.position = 'fixed';
+            buttonContainer.style.bottom = '0';
+        }
+    }
+
+    function getOptionTitle(option) {
+        switch (option) {
+            case 1: return 'Bienvenid@';
+            case 2: return 'Introducción';
+            case 3: return 'Competencia';
+            case 4: return 'Metodología';
+            case 5: return 'Temáticas';
+            case 6: return 'Planteamiento de la Situación Problema';
+            case 7: return 'Desarrollo de la Situación Problema';
+            case 8: return 'Análisis de Resultados';
+            case 9: return 'Actividades de Aprendizaje';
+            case 10: return 'Actividades de Evaluación';
+            case 11: return 'Conclusiones';
+            case 12: return 'Bibliografía';
+            case 13: return 'Autores';
+            default: return '';
+        }
+    }
+
+</script>
+</body>
+</html>
